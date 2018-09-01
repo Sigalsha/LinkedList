@@ -12,31 +12,37 @@ class LinkedList {
         }
     }
 
-    addToTheBeginning() {
+    addToTheBeginning(newNode) {
         newNode.next = this.head;
         this.head = newNode;
         this._length++ ;
     }
 
-    addToTheEnd() {
+    addToTheEnd(newEndNode) {
         //to do: fix this//
-        if (someNode.next === null) {
-            newEndNode.next = someNode;
-            someNode = newEndNode;
-        }
-    }
-
-    delete() {
-        //to do: check this//
-        if (this.head === null){
-            someNode.next = this.head;
-            this.head = someNode;
-            this._length--;
-            return someNode;
+        if (this.head === null) {
+            newEndNode.next = null;
+            this.head = newEndNode;
+            return newEndNode;
         }
 
         var currentNode = this.head;
-        var skippedNode;
+        while (!currentNode.next === null) {
+            currentNode = currentNode.next;
+        }
+        newEndNode.next = null;
+        currentNode.next = newEndNode;
+
+        return newEndNode;
+    }
+
+    delete(skippedNode) {
+        //to do: check this//
+        if (this.head === null){
+            return;
+        }
+
+        var currentNode = this.head;
         while (!currentNode.next === null) {
             if (currentNode.next === skippedNode){
                 currentNode.next = skippedNode.next;
@@ -46,33 +52,29 @@ class LinkedList {
         }
     }
 
-    removeItemByIndex() {
-        //to do: check this//
+    removeItemByIndex(number) {
        this._length = number;
-       var nodeToDelete;
+       var nodeToDelete = null;
 
        if (number === 0) {
-            this.head = nodeToDelete;
+           nodeToDelete = this.head;
+            this.head = nodeToDelete.next;
             return;
        }
 
        var countNodes = 0;
        var currentNode = this.head;
-       while (!currentNode.next === null) {
-            if (countNodes === number) {
-                currentNode = nodeToDelete;
+       while (currentNode.next !== null) {
+            if (countNodes === number - 1) {
+                nodeToDelete = currentNode.next;
                 currentNode.next = nodeToDelete.next;
-                number-- ;
+                this._length-- ;
             }
             currentNode = currentNode.next;
             countNodes++ ;
        }
     }
 }
-
-// The function should be given number 
-// that represents the index of the item to delete, 
-// find it and then delete it.
 
 class Node {
     constructor(data){
