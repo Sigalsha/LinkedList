@@ -23,7 +23,7 @@ class LinkedList {
         if (this.head === null) {
             newEndNode.next = null;
             this.head = newEndNode;
-            return newEndNode;
+            this._length++ ;
         }
 
         var currentNode = this.head;
@@ -32,12 +32,10 @@ class LinkedList {
         }
         newEndNode.next = null;
         currentNode.next = newEndNode;
-
-        return newEndNode;
+        this._length++ ;
     }
 
     delete(skippedNode) {
-        //to do: check this//
         if (this.head === null){
             return;
         }
@@ -52,11 +50,10 @@ class LinkedList {
         }
     }
 
-    removeItemByIndex(number) {
-       this._length = number;
+    removeItemByIndex(index) {
        var nodeToDelete = null;
 
-       if (number === 0) {
+       if (index === 0) {
            nodeToDelete = this.head;
             this.head = nodeToDelete.next;
             return;
@@ -65,7 +62,7 @@ class LinkedList {
        var countNodes = 0;
        var currentNode = this.head;
        while (currentNode.next !== null) {
-            if (countNodes === number - 1) {
+            if (countNodes === index - 1) {
                 nodeToDelete = currentNode.next;
                 currentNode.next = nodeToDelete.next;
                 this._length-- ;
